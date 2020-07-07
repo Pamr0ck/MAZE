@@ -6,19 +6,24 @@ import java.util.*;
  * NULL когда нет пути
  */
 public class Astar {
-    public static List<Maze.Cell> search(Maze maze, Maze.Cell sourceCell, Maze.Cell goalCell){
+    public static Snapshot snap;
+
+    public static ArrayList<Maze.Cell> search(Maze maze, Maze.Cell sourceCell, Maze.Cell goalCell){
         if(sourceCell.isWall || goalCell.isWall)
             return new ArrayList<Maze.Cell>();
 
+        snap = new Snapshot();
+
         Map<Maze.Cell, Boolean> closedSet = new HashMap<Maze.Cell, Boolean>();
         Comparator<Maze.Cell> comparator = new CellComparator();
-        PriorityQueue<Maze.Cell> openSet = new PriorityQueue<Maze.Cell>(100, comparator);
+        PriorityQueue<Maze.Cell> openSet = new PriorityQueue<Maze.Cell>(10, comparator);
         Vector<Maze.Cell> path = new Vector<Maze.Cell>();
         sourceCell.g = 0;
         sourceCell.h = heuristicCost(sourceCell, goalCell);
         sourceCell.f = sourceCell.g + sourceCell.h;
         openSet.add(sourceCell);
-
+        snap.addState(maze);
+        sourceCell.wasSeen = true;
         while(!openSet.isEmpty()){
             Maze.Cell x = openSet.remove();
 
@@ -43,17 +48,19 @@ public class Astar {
                     }
                     if(gBetter){
                         i.cameFrom = x;
+                        i.wasSeen = true;
                         i.g = gScore;
                         i.h = heuristicCost(i,x);
                         i.f = i.g + i.h;
                     }
                 }
             }
+            snap.addState(maze);
         }
         return new ArrayList<Maze.Cell>();
     }
 
-    public static List<Maze.Cell> reconstructPath(Maze.Cell start, Maze.Cell goal){
+    public static ArrayList<Maze.Cell> reconstructPath(Maze.Cell start, Maze.Cell goal){
         ArrayList<Maze.Cell> path = new ArrayList<Maze.Cell>();
         Maze.Cell currentCell = goal;
         while(currentCell != null){
@@ -69,8 +76,25 @@ public class Astar {
 
     public static class CellComparator implements Comparator<Maze.Cell>{
         @Override
-        public int compare(Maze.Cell o1, Maze.Cell o2) {
+        public int compare(Maze.Cell o1, Maze.Cell o2){
             return Integer.compare(o2.f, o1.f);
+        }
+    }
+
+
+    public static class Snapshot{
+        public ArrayList<Maze> states;
+
+        public Snapshot(){
+            states = new ArrayList<>();
+        }
+
+        public void addState(final Maze step){
+            this.states.add(new Maze(step));
+        }
+
+        public Maze getState(Integer iteration){
+            return this.states.get(iteration);
         }
     }
 }

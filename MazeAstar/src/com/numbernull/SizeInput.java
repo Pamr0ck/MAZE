@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class SizeInput extends JFrame{
-    private final JLabel info;
     private final JTextField yCord;
     private int y = 0 ;
     private final JButton ok;
@@ -16,9 +15,9 @@ public class SizeInput extends JFrame{
         super(s);
         setLayout(new GridLayout(3, 0, 10, 10));
         this.ok = new JButton("Ok");
-        this.info = new JLabel("Введите размер:");
+        JLabel info = new JLabel("Введите размер:");
         this.yCord = new JTextField("длина лабиринта", 5);
-        add(this.info);
+        add(info);
         add(this.yCord);
         add(this.ok);
 
