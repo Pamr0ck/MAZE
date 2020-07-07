@@ -120,14 +120,15 @@ public class MazeWindow extends JFrame {
                     if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
                         JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
                                 "Ошибка", JOptionPane.ERROR_MESSAGE);
-                    }
-                    if(!isReady) {
-                        path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
-                        isReady = true;
-                    }
-                    if(currentIteration < Astar.snap.states.size() - 1) {
-                        currentIteration++;
-                        updateField(Astar.snap.states.get(currentIteration));
+                    } else{
+                        if(!isReady) {
+                            path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
+                            isReady = true;
+                        }
+                        if(currentIteration < Astar.snap.states.size() - 1) {
+                            currentIteration++;
+                            updateField(Astar.snap.states.get(currentIteration));
+                        }
                     }
                 }
             }
@@ -140,14 +141,15 @@ public class MazeWindow extends JFrame {
                     if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
                         JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
                                 "Ошибка", JOptionPane.ERROR_MESSAGE);
-                    }
-                    if (!isReady) {
-                        path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
-                        isReady = true;
-                    }
-                    if (currentIteration > 0) {
-                        currentIteration--;
-                        updateField(Astar.snap.states.get(currentIteration));
+                    }else{
+                        if (!isReady) {
+                            path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
+                            isReady = true;
+                        }
+                        if (currentIteration > 0) {
+                            currentIteration--;
+                            updateField(Astar.snap.states.get(currentIteration));
+                        }
                     }
                 }
             }
@@ -175,24 +177,24 @@ public class MazeWindow extends JFrame {
         gbcMaze.gridy = 0; // № строки
         gbcMaze.gridwidth = 1; // число ячеек, занимаемых объектом
 
-        gbcMaze.ipadx = 20;
-        gbcMaze.ipady = 20;
-        gbcMaze.anchor = GridBagConstraints.LINE_END; //  задает выравнивание компонента внутри отведенного для него пространства
-        leftPane.add(new JButton("Сохранить лабиринт"), gbcMaze);
-
-        gbcMaze.gridx = 1; // № столбца
-        gbcMaze.gridy = 0; // № строки
-        gbcMaze.gridwidth = 1; // число ячеек, занимаемых объектом
-        gbcMaze.anchor = GridBagConstraints.LINE_START;
-        leftPane.add(new JButton("Загрузить лабиринт"), gbcMaze);
+//        gbcMaze.ipadx = 20;
+//        gbcMaze.ipady = 20;
+//        gbcMaze.anchor = GridBagConstraints.LINE_END; //  задает выравнивание компонента внутри отведенного для него пространства
+//        leftPane.add(new JButton("Сохранить лабиринт"), gbcMaze);
+//
+//        gbcMaze.gridx = 1; // № столбца
+//        gbcMaze.gridy = 0; // № строки
+//        gbcMaze.gridwidth = 1; // число ячеек, занимаемых объектом
+//        gbcMaze.anchor = GridBagConstraints.LINE_START;
+//        leftPane.add(new JButton("Загрузить лабиринт"), gbcMaze);
 
         gbcMaze.ipadx = 0;
         gbcMaze.ipady = 0;
         gbcMaze.fill = GridBagConstraints.BOTH;
         gbcMaze.gridwidth = 2;
-        gbcMaze.weightx = 1; //выделение пространства для столбцов
+//        gbcMaze.weightx = 1; //выделение пространства для столбцов
         gbcMaze.weighty = 1; //и строк
-        gbcMaze.gridx = 0; // № столбца
+//        gbcMaze.gridx = 0; // № столбца
         gbcMaze.gridy = 1; // № строки
 
 
