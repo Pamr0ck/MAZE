@@ -15,6 +15,7 @@ public class MazeWindow extends JFrame {
     boolean isBegin = false;
     boolean isEnd = false;
     boolean isReady = false;
+    boolean isActive = true;
 
     int beginX=-1;
     int beginY=-1;
@@ -93,7 +94,7 @@ public class MazeWindow extends JFrame {
                 if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
                     JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
                             "Ошибка", JOptionPane.ERROR_MESSAGE);
-                }else {
+                } else if(isActive) {
                     if (e.getSource() == start && !isReady) {
                         path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
                         isReady = true;
@@ -129,7 +130,7 @@ public class MazeWindow extends JFrame {
                     if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
                         JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
                                 "Ошибка", JOptionPane.ERROR_MESSAGE);
-                    } else{
+                    } else  if(isActive) {
                         if(!isReady) {
                             path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
                             isReady = true;
@@ -150,7 +151,7 @@ public class MazeWindow extends JFrame {
                     if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
                         JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
                                 "Ошибка", JOptionPane.ERROR_MESSAGE);
-                    }else{
+                    }else  if(isActive){
                         if (!isReady) {
                             path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
                             isReady = true;
@@ -219,6 +220,8 @@ public class MazeWindow extends JFrame {
                     }
                     isBegin = true;
                     isEnd = false;
+                    setBegin.setEnabled(false);
+                    isActive = false;
                 }
             }
         });
@@ -232,6 +235,8 @@ public class MazeWindow extends JFrame {
                     }
                     isEnd = true;
                     isBegin = false;
+                    setEnd.setEnabled(false);
+                    isActive = false;
                 }
             }
         });
@@ -272,6 +277,9 @@ public class MazeWindow extends JFrame {
                                 isBegin = false;
                                 mazeField.elementAt(beginY).elementAt(beginX).setBackground(Color.YELLOW);
                                 mazeField.elementAt(beginY).elementAt(beginX).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
+                                isActive = true;
+                                setBegin.setEnabled(true);
+                                updateField(labyrinth);
                             }
                             if (isEnd) {
                                 endX = x;
@@ -279,6 +287,9 @@ public class MazeWindow extends JFrame {
                                 isEnd = false;
                                 mazeField.elementAt(endY).elementAt(endX).setBackground(Color.BLUE);
                                 mazeField.elementAt(endY).elementAt(endX).setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
+                                isActive = true;
+                                setEnd.setEnabled(true);
+                                updateField(labyrinth);
                             }
                         }
                     });
