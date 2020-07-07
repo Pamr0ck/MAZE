@@ -151,6 +151,20 @@ public class Maze {
         return this.sizeX;
     }
 
+    public void clear(){
+        for (int i = 0; i < this.sizeX-1; i++) {
+            for (int j = 0; j <this.sizeY-1 ; j++) {
+                labyrinth.elementAt(i).elementAt(j).clear();
+            }
+        }
+        for (int i = 0; i < this.sizeX-1; i++) {
+            for (int j = 0; j <this.sizeY-1 ; j++) {
+                addNeighbours(labyrinth.elementAt(i).elementAt(j));
+            }
+        }
+
+    }
+
     private void printNeighbours(Cell cell){
         System.out.println("Main cell is " + cell.x + " " + cell.y);
         for(Cell i : cell.neighbours){
@@ -185,6 +199,15 @@ public class Maze {
             this.wasSeen = obj.wasSeen;
             this.isPath = obj.isPath;
             this.neighbours = new Vector<>();
+        }
+        public void clear(){
+            wasSeen = false;
+            isPath = false;
+            g = 0;
+            h = 0;
+            f = 0;
+            cameFrom = null;
+            neighbours.clear();
         }
     }
 

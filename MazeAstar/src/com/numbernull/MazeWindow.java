@@ -144,8 +144,10 @@ public class MazeWindow extends JFrame {
         setBegin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 if (e.getSource() == setBegin) {
+                    if(isReady){
+                        cleanTable(labyrinth,endX, endY);
+                    }
                     isBegin = true;
                     isEnd = false;
                 }
@@ -156,6 +158,9 @@ public class MazeWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == setEnd) {
+                    if(isReady){
+                        cleanTable(labyrinth, beginX, beginY);
+                    }
                     isEnd = true;
                     isBegin = false;
                 }
@@ -219,5 +224,18 @@ public class MazeWindow extends JFrame {
         container.add(maze);
         container.add(options);
 
+
+    }
+    private  void cleanTable(Maze m, int saveX, int saveY){
+        m.clear();
+        isReady = false;
+        for (int i = 0; i < m.sizeY-1; i++) {
+            for (int j = 0; j < m.sizeX-1 ; j++) {
+                if(!m.labyrinth.elementAt(i).elementAt(j).isWall && !(i == saveY && j == saveX)){
+                    mazeField.elementAt(i).elementAt(j).setBackground(Color.GREEN);
+                    mazeField.elementAt(i).elementAt(j).setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
+                }
+            }
+        }
     }
 }
