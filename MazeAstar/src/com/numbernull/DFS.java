@@ -3,6 +3,10 @@ import java.util.*;
 
 public class DFS {
     public static List<Maze.Cell> search(Maze maze, Maze.Cell sourceCell, Maze.Cell goalCell){
+
+        if(sourceCell.isWall || goalCell.isWall)
+            return new ArrayList<Maze.Cell>();
+
         Stack<Maze.Cell>stack = new Stack<>();
         Maze.Cell curr;
         sourceCell.wasSeen = true;
@@ -19,7 +23,7 @@ public class DFS {
                 }
             }
         }
-        return null;
+        return new ArrayList<Maze.Cell>();
     }
     public static List<Maze.Cell> hasFriends(Maze.Cell curr){
         List<Maze.Cell> ans = new ArrayList<Maze.Cell>();

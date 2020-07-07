@@ -7,6 +7,9 @@ import java.util.*;
  */
 public class Astar {
     public static List<Maze.Cell> search(Maze maze, Maze.Cell sourceCell, Maze.Cell goalCell){
+        if(sourceCell.isWall || goalCell.isWall)
+            return new ArrayList<Maze.Cell>();
+
         Map<Maze.Cell, Boolean> closedSet = new HashMap<Maze.Cell, Boolean>();
         Comparator<Maze.Cell> comparator = new CellComparator();
         PriorityQueue<Maze.Cell> openSet = new PriorityQueue<Maze.Cell>(100, comparator);
@@ -47,7 +50,7 @@ public class Astar {
                 }
             }
         }
-        return null;
+        return new ArrayList<Maze.Cell>();
     }
 
     public static List<Maze.Cell> reconstructPath(Maze.Cell start, Maze.Cell goal){

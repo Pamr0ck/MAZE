@@ -114,6 +114,10 @@ public class Maze {
         }
     }
 
+    public int getSizeX(){
+        return this.sizeX;
+    }
+
     private void printNeighbours(Cell cell){
         System.out.println("Main cell is " + cell.x + " " + cell.y);
         for(Cell i : cell.neighbours){
