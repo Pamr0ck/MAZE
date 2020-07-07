@@ -16,10 +16,10 @@ public class MazeWindow extends JFrame {
     boolean isEnd = false;
     boolean isReady = false;
 
-    int beginX;
-    int beginY;
-    int endX;
-    int endY;
+    int beginX=-1;
+    int beginY=-1;
+    int endX=-1;
+    int endY=-1;
     Vector<Vector<JLabel>> mazeField;
     ArrayList<Maze.Cell> path;
 
@@ -62,7 +62,7 @@ public class MazeWindow extends JFrame {
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1200, 600);
+        setSize(1200, 700);
         setResizable(false);
         setLocationRelativeTo(null);
         getRootPane().setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
@@ -72,28 +72,44 @@ public class MazeWindow extends JFrame {
 
         GridLayout mazeStyle = new GridLayout(x, y, 0, 0);
         JPanel maze = new JPanel();
-        //maze.setSize(1000, 600);
-        maze.setLayout(mazeStyle);
 
-        FlowLayout optionsStyle = new FlowLayout(FlowLayout.CENTER);
+//        maze.setSize(600, 600);
+        maze.setLayout(mazeStyle);
+        // дизайн toolbara
+        GridBagLayout optionsStyle = new GridBagLayout();
         JPanel options = new JPanel();
         options.setLayout(optionsStyle);
+        GridBagConstraints gbcOptions = new GridBagConstraints();
 
         JButton start = new JButton("Старт");
 
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == start && !isReady) {
-                    path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
-                    isReady = true;
-                    updateField(Astar.snap.states.get(Astar.snap.states.size() - 1));
-                    currentIteration = Astar.snap.states.size() - 1;
+                if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
+                    JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
+                            "Ошибка", JOptionPane.ERROR_MESSAGE);
+                }else {
+                    if (e.getSource() == start && !isReady) {
+                        path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
+                        isReady = true;
+                        updateField(Astar.snap.states.get(Astar.snap.states.size() - 1));
+                        currentIteration = Astar.snap.states.size() - 1;
+                    }
                 }
             }
         });
 
-        options.add(start);
+        gbcOptions.fill = GridBagConstraints.HORIZONTAL;
+        gbcOptions.gridx = 0; // № столбца
+        gbcOptions.gridy = 0; // № строки
+        gbcOptions.gridwidth = 2; // число ячеек, занимаемых объектом
+        gbcOptions.ipadx = 80;
+        gbcOptions.ipady = 80;
+        gbcOptions.anchor = GridBagConstraints.CENTER; //  задает выравнивание
+
+        options.add(start, gbcOptions);
+
         JButton next = new JButton("Вперед");
         JButton prev = new JButton("Назад");
 
@@ -101,6 +117,10 @@ public class MazeWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == next) {
+                    if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
+                        JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
+                                "Ошибка", JOptionPane.ERROR_MESSAGE);
+                    }
                     if(!isReady) {
                         path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
                         isReady = true;
@@ -117,6 +137,10 @@ public class MazeWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 if(e.getSource() == prev){
+                    if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
+                        JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
+                                "Ошибка", JOptionPane.ERROR_MESSAGE);
+                    }
                     if (!isReady) {
                         path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
                         isReady = true;
@@ -129,14 +153,48 @@ public class MazeWindow extends JFrame {
             }
         });
 
+        gbcOptions.fill = GridBagConstraints.HORIZONTAL;
+        gbcOptions.gridx = 0; // № столбца
+        gbcOptions.gridy = 1; // № строки
+        gbcOptions.gridwidth = 1; // число ячеек, занимаемых объектом
+        gbcOptions.anchor = GridBagConstraints.LINE_END; //  задает выравнивание
 
-        options.add(next);
-        options.add(prev);
+        options.add(prev, gbcOptions);
+        gbcOptions.gridx = 1; // № столбца
+        gbcOptions.anchor = GridBagConstraints.LINE_START;
+        options.add(next, gbcOptions);
 
+        // настройки для стороны с лабиринтом
+        JPanel leftPane = new JPanel();
+        leftPane.setLayout(new GridBagLayout());
+        GridBagConstraints gbcMaze = new GridBagConstraints();
+        gbcMaze.fill = GridBagConstraints.NONE; //стратегию распределения компоненту свободного пространства
+        gbcMaze.weightx = 1; //выделение пространства для столбцов
 
+        gbcMaze.gridx = 0; // № столбца
+        gbcMaze.gridy = 0; // № строки
+        gbcMaze.gridwidth = 1; // число ячеек, занимаемых объектом
 
-        options.add(new JButton("Сохранить лабиринт"));
-        options.add(new JButton("Загрузить лабиринт"));
+        gbcMaze.ipadx = 20;
+        gbcMaze.ipady = 20;
+        gbcMaze.anchor = GridBagConstraints.LINE_END; //  задает выравнивание компонента внутри отведенного для него пространства
+        leftPane.add(new JButton("Сохранить лабиринт"), gbcMaze);
+
+        gbcMaze.gridx = 1; // № столбца
+        gbcMaze.gridy = 0; // № строки
+        gbcMaze.gridwidth = 1; // число ячеек, занимаемых объектом
+        gbcMaze.anchor = GridBagConstraints.LINE_START;
+        leftPane.add(new JButton("Загрузить лабиринт"), gbcMaze);
+
+        gbcMaze.ipadx = 0;
+        gbcMaze.ipady = 0;
+        gbcMaze.fill = GridBagConstraints.BOTH;
+        gbcMaze.gridwidth = 2;
+        gbcMaze.weightx = 1; //выделение пространства для столбцов
+        gbcMaze.weighty = 1; //и строк
+        gbcMaze.gridx = 0; // № столбца
+        gbcMaze.gridy = 1; // № строки
+
 
         JButton setBegin = new JButton("Указать начало");
         JButton setEnd = new JButton("Указать конец");
@@ -167,9 +225,13 @@ public class MazeWindow extends JFrame {
             }
         });
 
-
-        options.add(setBegin);
-        options.add(setEnd);
+        gbcOptions.gridx = 0; // № столбца
+        gbcOptions.gridy = 2;
+        gbcOptions.anchor = GridBagConstraints.LINE_START;
+        options.add(setBegin, gbcOptions);
+        gbcOptions.gridx = 1;
+        gbcOptions.anchor = GridBagConstraints.LINE_END;
+        options.add(setEnd, gbcOptions);
 
         mazeField = new Vector<>();
 
@@ -220,8 +282,10 @@ public class MazeWindow extends JFrame {
             mazeField.addElement(cells);
         }
 
+        leftPane.add(maze, gbcMaze);
 
-        container.add(maze);
+        container.add(leftPane);
+
         container.add(options);
 
 

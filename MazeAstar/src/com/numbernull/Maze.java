@@ -45,6 +45,7 @@ public class Maze {
                 addNeighbours(labyrinth.elementAt(i).elementAt(j));
             }
         }
+        generateMaze();
     }
 
     public Maze(Maze m){

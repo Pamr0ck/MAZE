@@ -14,6 +14,31 @@ public class AstarTest {
     Maze Big1, Mid1, Small1 ,Big2, Mid2, Small2;
     List<Maze.Cell> A;
     List<Maze.Cell> D;
+    int StartX;
+    int StartY;
+    int GoalX;
+    int GoalY;
+    private int[] genCoords(Maze m){
+        Random rnd = new Random();
+        int[] ans = new int[4];
+        StartX = rnd.nextInt(m.getSizeX()-1);
+        StartY = rnd.nextInt(m.getSizeX()-1);
+        GoalX = rnd.nextInt(m.getSizeX()-1);
+        GoalY = rnd.nextInt(m.getSizeX()-1);
+        while (m.labyrinth.elementAt(StartY).elementAt(StartX).isWall){
+            StartX = rnd.nextInt(m.getSizeX()-1);
+            StartY = rnd.nextInt(m.getSizeX()-1);
+        }
+        while (m.labyrinth.elementAt(GoalY).elementAt(GoalX).isWall){
+            GoalX = rnd.nextInt(m.getSizeX()-1);
+            GoalY = rnd.nextInt(m.getSizeX()-1);
+        }
+        ans[0] = StartX;
+        ans[1] = StartY;
+        ans[2] = GoalX;
+        ans[3] = GoalY;
+        return ans;
+    }
 
     @Test
     public void searchBig() {
@@ -21,16 +46,17 @@ public class AstarTest {
         int sizeB = rnd.nextInt(10)+70;
         for (int j = 0; j < 2; j++) {
             Big1 = new Maze(sizeB);
-            Big2 = Big1;
-            int StartX = rnd.nextInt(Big1.getSizeX()-3)+1,
-                StartY = rnd.nextInt(Big1.getSizeX()-3)+1,
-                GoalX = rnd.nextInt(Big1.getSizeX()-3)+1,
-                GoalY = rnd.nextInt(Big1.getSizeX()-3)+1;
+            int[] tmp = genCoords(Big1);
+            StartX = tmp[0];
+            StartY = tmp[1];
+            GoalX = tmp[2];
+            GoalY = tmp[3];
 
             A = Astar.search(Big1, Big1.labyrinth.elementAt(StartX).elementAt(StartY),
                     Big1.labyrinth.elementAt(GoalX).elementAt(GoalY));
-            D = DFS.search(Big2, Big2.labyrinth.elementAt(StartX).elementAt(StartY),
-                    Big2.labyrinth.elementAt(GoalX).elementAt(GoalY));
+            Big1.clear();
+            D = DFS.search(Big1, Big1.labyrinth.elementAt(StartX).elementAt(StartY),
+                    Big1.labyrinth.elementAt(GoalX).elementAt(GoalY));
             assertEquals(A,D);
 
         }
@@ -41,16 +67,16 @@ public class AstarTest {
         int sizeM = rnd.nextInt(10)+30;
         for (int j = 0; j < 2; j++) {
             Mid1 = new Maze(sizeM);
-            Mid2 = Mid1;
-            int StartX = rnd.nextInt(Mid1.getSizeX()-3)+1,
-                    StartY = rnd.nextInt(Mid1.getSizeX()-3)+1,
-                    GoalX = rnd.nextInt(Mid1.getSizeX()-3)+1,
-                    GoalY = rnd.nextInt(Mid1.getSizeX()-3)+1;
-
+            int[] tmp = genCoords(Mid1);
+            StartX = tmp[0];
+            StartY = tmp[1];
+            GoalX = tmp[2];
+            GoalY = tmp[3];
             A = Astar.search(Mid1, Mid1.labyrinth.elementAt(StartX).elementAt(StartY),
                     Mid1.labyrinth.elementAt(GoalX).elementAt(GoalY));
-            D = DFS.search(Mid2, Mid2.labyrinth.elementAt(StartX).elementAt(StartY),
-                    Mid2.labyrinth.elementAt(GoalX).elementAt(GoalY));
+            Mid1.clear();
+            D = DFS.search(Mid1, Mid1.labyrinth.elementAt(StartX).elementAt(StartY),
+                    Mid1.labyrinth.elementAt(GoalX).elementAt(GoalY));
             assertEquals(A,D);
 
         }
@@ -58,19 +84,19 @@ public class AstarTest {
     @Test
     public void searchSmall() {
         Random rnd = new Random();
-        int sizeS = rnd.nextInt(10)+4;
+        int sizeS = rnd.nextInt(10)+6;
         for (int j = 0; j < 2; j++) {
             Small1 = new Maze(sizeS);
-            Small2 = Small1;
-            int StartX = rnd.nextInt(Small1.getSizeX()-3)+1,
-                    StartY = rnd.nextInt(Small1.getSizeX()-3)+1,
-                    GoalX = rnd.nextInt(Small1.getSizeX()-3)+1,
-                    GoalY = rnd.nextInt(Small1.getSizeX()-3)+1;
-
+            int[] tmp = genCoords(Small1);
+            StartX = tmp[0];
+            StartY = tmp[1];
+            GoalX = tmp[2];
+            GoalY = tmp[3];
             A = Astar.search(Small1, Small1.labyrinth.elementAt(StartX).elementAt(StartY),
                     Small1.labyrinth.elementAt(GoalX).elementAt(GoalY));
-            D = DFS.search(Small2, Small2.labyrinth.elementAt(StartX).elementAt(StartY),
-                    Small2.labyrinth.elementAt(GoalX).elementAt(GoalY));
+            Small1.clear();
+            D = DFS.search(Small1, Small1.labyrinth.elementAt(StartX).elementAt(StartY),
+                    Small1.labyrinth.elementAt(GoalX).elementAt(GoalY));
             assertEquals(D,A);
 
         }
