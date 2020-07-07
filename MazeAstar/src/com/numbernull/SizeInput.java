@@ -27,13 +27,13 @@ public class SizeInput extends JFrame{
                 if(e.getSource() == ok){
                     try {
                         y = Integer.parseInt(yCord.getText());
-                        if (y < 4 || y > 150) {
+                        if (y < 4 || y > 100) {
                             throw new RangeException((short) 0,"");
                         }
                         setVisible(false);
                         new MazeWindow(s, y, y, new Maze(y, y));
                     }catch (NumberFormatException | RangeException err){
-                        JOptionPane.showMessageDialog(new JFrame(), "Введите целое значение от 4 до 150",
+                        JOptionPane.showMessageDialog(new JFrame(), "Введите целое значение от 4 до 100",
                                 "Ошибка", JOptionPane.ERROR_MESSAGE);
                     }
                 }

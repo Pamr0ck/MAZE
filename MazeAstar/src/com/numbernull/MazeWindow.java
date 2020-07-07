@@ -51,6 +51,10 @@ public class MazeWindow extends JFrame {
                 }
             }
         }
+        mazeField.elementAt(beginY).elementAt(beginX).setBackground(Color.YELLOW);
+        mazeField.elementAt(beginY).elementAt(beginX).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
+        mazeField.elementAt(endY).elementAt(endX).setBackground(Color.BLUE);
+        mazeField.elementAt(endY).elementAt(endX).setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
     }
 
 
@@ -72,14 +76,14 @@ public class MazeWindow extends JFrame {
 
         GridLayout mazeStyle = new GridLayout(x, y, 0, 0);
         JPanel maze = new JPanel();
-
 //        maze.setSize(600, 600);
         maze.setLayout(mazeStyle);
+
         // дизайн toolbara
         GridBagLayout optionsStyle = new GridBagLayout();
         JPanel options = new JPanel();
         options.setLayout(optionsStyle);
-        GridBagConstraints gbcOptions = new GridBagConstraints();
+        GridBagConstraints layoutOpt = new GridBagConstraints();
 
         JButton start = new JButton("Старт");
 
@@ -95,20 +99,25 @@ public class MazeWindow extends JFrame {
                         isReady = true;
                         updateField(Astar.snap.states.get(Astar.snap.states.size() - 1));
                         currentIteration = Astar.snap.states.size() - 1;
+                    }else{
+                        if(e.getSource() == start && isReady){
+                            currentIteration = Astar.snap.states.size() - 1;
+                            updateField(Astar.snap.states.get(Astar.snap.states.size() - 1));
+                        }
                     }
                 }
             }
         });
 
-        gbcOptions.fill = GridBagConstraints.HORIZONTAL;
-        gbcOptions.gridx = 0; // № столбца
-        gbcOptions.gridy = 0; // № строки
-        gbcOptions.gridwidth = 2; // число ячеек, занимаемых объектом
-        gbcOptions.ipadx = 80;
-        gbcOptions.ipady = 80;
-        gbcOptions.anchor = GridBagConstraints.CENTER; //  задает выравнивание
+        layoutOpt.fill = GridBagConstraints.HORIZONTAL;
+        layoutOpt.gridx = 0; // № столбца
+        layoutOpt.gridy = 0; // № строки
+        layoutOpt.gridwidth = 2; // число ячеек, занимаемых объектом
+        layoutOpt.ipadx = 80;
+        layoutOpt.ipady = 80;
+        layoutOpt.anchor = GridBagConstraints.CENTER; //  задает выравнивание
 
-        options.add(start, gbcOptions);
+        options.add(start, layoutOpt);
 
         JButton next = new JButton("Вперед");
         JButton prev = new JButton("Назад");
@@ -155,16 +164,16 @@ public class MazeWindow extends JFrame {
             }
         });
 
-        gbcOptions.fill = GridBagConstraints.HORIZONTAL;
-        gbcOptions.gridx = 0; // № столбца
-        gbcOptions.gridy = 1; // № строки
-        gbcOptions.gridwidth = 1; // число ячеек, занимаемых объектом
-        gbcOptions.anchor = GridBagConstraints.LINE_END; //  задает выравнивание
+        layoutOpt.fill = GridBagConstraints.HORIZONTAL;
+        layoutOpt.gridx = 0; // № столбца
+        layoutOpt.gridy = 1; // № строки
+        layoutOpt.gridwidth = 1; // число ячеек, занимаемых объектом
+        layoutOpt.anchor = GridBagConstraints.LINE_END; //  задает выравнивание
 
-        options.add(prev, gbcOptions);
-        gbcOptions.gridx = 1; // № столбца
-        gbcOptions.anchor = GridBagConstraints.LINE_START;
-        options.add(next, gbcOptions);
+        options.add(prev, layoutOpt);
+        layoutOpt.gridx = 1; // № столбца
+        layoutOpt.anchor = GridBagConstraints.LINE_START;
+        options.add(next, layoutOpt);
 
         // настройки для стороны с лабиринтом
         JPanel leftPane = new JPanel();
@@ -227,13 +236,13 @@ public class MazeWindow extends JFrame {
             }
         });
 
-        gbcOptions.gridx = 0; // № столбца
-        gbcOptions.gridy = 2;
-        gbcOptions.anchor = GridBagConstraints.LINE_START;
-        options.add(setBegin, gbcOptions);
-        gbcOptions.gridx = 1;
-        gbcOptions.anchor = GridBagConstraints.LINE_END;
-        options.add(setEnd, gbcOptions);
+        layoutOpt.gridx = 0; // № столбца
+        layoutOpt.gridy = 2;
+        layoutOpt.anchor = GridBagConstraints.LINE_START;
+        options.add(setBegin, layoutOpt);
+        layoutOpt.gridx = 1;
+        layoutOpt.anchor = GridBagConstraints.LINE_END;
+        options.add(setEnd, layoutOpt);
 
         mazeField = new Vector<>();
 
@@ -261,11 +270,15 @@ public class MazeWindow extends JFrame {
                                 beginX = x;
                                 beginY = y;
                                 isBegin = false;
+                                mazeField.elementAt(beginY).elementAt(beginX).setBackground(Color.YELLOW);
+                                mazeField.elementAt(beginY).elementAt(beginX).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
                             }
                             if (isEnd) {
                                 endX = x;
                                 endY = y;
                                 isEnd = false;
+                                mazeField.elementAt(endY).elementAt(endX).setBackground(Color.BLUE);
+                                mazeField.elementAt(endY).elementAt(endX).setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
                             }
                         }
                     });
@@ -287,7 +300,6 @@ public class MazeWindow extends JFrame {
         leftPane.add(maze, gbcMaze);
 
         container.add(leftPane);
-
         container.add(options);
 
 
@@ -295,6 +307,7 @@ public class MazeWindow extends JFrame {
     private  void cleanTable(Maze m, int saveX, int saveY){
         m.clear();
         isReady = false;
+        currentIteration = 0;
         for (int i = 0; i < m.sizeY-1; i++) {
             for (int j = 0; j < m.sizeX-1 ; j++) {
                 if(!m.labyrinth.elementAt(i).elementAt(j).isWall && !(i == saveY && j == saveX)){
