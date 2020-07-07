@@ -114,8 +114,8 @@ public class MazeWindow extends JFrame {
         layoutOpt.gridx = 0; // № столбца
         layoutOpt.gridy = 0; // № строки
         layoutOpt.gridwidth = 2; // число ячеек, занимаемых объектом
-        layoutOpt.ipadx = 80;
-        layoutOpt.ipady = 80;
+        layoutOpt.ipadx = 70;
+        layoutOpt.ipady = 70;
         layoutOpt.anchor = GridBagConstraints.CENTER; //  задает выравнивание
 
         options.add(start, layoutOpt);
@@ -177,8 +177,9 @@ public class MazeWindow extends JFrame {
         options.add(next, layoutOpt);
 
         // настройки для стороны с лабиринтом
-        JPanel leftPane = new JPanel();
-        leftPane.setLayout(new GridBagLayout());
+        JPanel mazePane = new JPanel();
+        mazePane.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+        mazePane.setLayout(new GridBagLayout());
         GridBagConstraints gbcMaze = new GridBagConstraints();
         gbcMaze.fill = GridBagConstraints.NONE; //стратегию распределения компоненту свободного пространства
         gbcMaze.weightx = 1; //выделение пространства для столбцов
@@ -308,10 +309,148 @@ public class MazeWindow extends JFrame {
             mazeField.addElement(cells);
         }
 
-        leftPane.add(maze, gbcMaze);
+        // start of legend
+        GridBagLayout usabilityStyle = new GridBagLayout();
+        JPanel usabilityPane = new JPanel();
+        usabilityPane.setLayout(usabilityStyle);
+        GridBagConstraints usabilityOpt = new GridBagConstraints();
 
-        container.add(leftPane);
-        container.add(options);
+        usabilityOpt.fill = GridBagConstraints.NONE;
+        usabilityOpt.gridx = 0; // № столбца
+        usabilityOpt.gridy = 0; // № строки
+        usabilityOpt.gridwidth = 1; // число ячеек, занимаемых объектом
+        usabilityOpt.weighty = 1;
+//        usabilityOpt.ipadx = 70;
+//        usabilityOpt.ipady = 70;
+        usabilityOpt.anchor = GridBagConstraints.CENTER; //  задает выравнивание
+        // green
+        JLabel tmp = new JLabel();
+        tmp.setBackground(Color.GREEN);
+        tmp.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setPreferredSize(new Dimension(60,5));
+        usabilityPane.add(tmp, usabilityOpt);
+
+        usabilityOpt.gridy = 1;
+        tmp = new JLabel();
+        tmp.setBackground(Color.WHITE);
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setText("дорожка");
+        usabilityPane.add(tmp, usabilityOpt);
+        // magneta
+        usabilityOpt.gridy = 2;
+        tmp = new JLabel();
+        tmp.setBackground(Color.MAGENTA);
+        tmp.setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 1));
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setPreferredSize(new Dimension(60,5));
+        usabilityPane.add(tmp, usabilityOpt);
+
+        usabilityOpt.gridy = 3;
+        tmp = new JLabel();
+        tmp.setBackground(Color.WHITE);
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setText("потенциальный путь");
+        usabilityPane.add(tmp, usabilityOpt);
+
+        // black
+        usabilityOpt.gridy = 4;
+        tmp = new JLabel();
+        tmp.setBackground(Color.BLACK);
+        tmp.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setPreferredSize(new Dimension(60,5));
+        usabilityPane.add(tmp, usabilityOpt);
+
+        usabilityOpt.gridy = 5;
+        tmp = new JLabel();
+        tmp.setBackground(Color.WHITE);
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setText("стена");
+        usabilityPane.add(tmp, usabilityOpt);
+
+        // red
+
+        usabilityOpt.gridy = 6;
+        tmp = new JLabel();
+        tmp.setBackground(Color.RED);
+        tmp.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setPreferredSize(new Dimension(60,5));
+        usabilityPane.add(tmp, usabilityOpt);
+
+        usabilityOpt.gridy = 7;
+        tmp = new JLabel();
+        tmp.setBackground(Color.WHITE);
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setText("искомый путь");
+        usabilityPane.add(tmp, usabilityOpt);
+
+
+        usabilityOpt.gridy = 8;
+        tmp = new JLabel();
+        tmp.setBackground(Color.YELLOW);
+        tmp.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setPreferredSize(new Dimension(60,5));
+        usabilityPane.add(tmp, usabilityOpt);
+
+        usabilityOpt.gridy = 9;
+        tmp = new JLabel();
+        tmp.setBackground(Color.WHITE);
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setText("старт");
+        usabilityPane.add(tmp, usabilityOpt);
+
+
+        usabilityOpt.gridy = 10;
+        tmp = new JLabel();
+        tmp.setBackground(Color.BLUE);
+        tmp.setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setPreferredSize(new Dimension(60,5));
+        usabilityPane.add(tmp, usabilityOpt);
+
+        usabilityOpt.gridy = 11;
+        tmp = new JLabel();
+        tmp.setBackground(Color.WHITE);
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setText("финиш");
+        usabilityPane.add(tmp, usabilityOpt);
+
+
+
+
+
+
+
+
+
+        usabilityOpt.gridx = 1;
+        usabilityOpt.gridy = 0;
+        usabilityOpt.gridheight = GridBagConstraints.REMAINDER;
+        usabilityPane.add(options, usabilityOpt);
+// todo insets !
+        mazePane.add(maze, gbcMaze);
+
+        setBackground(Color.WHITE);
+        mazePane.setBackground(Color.WHITE);
+        usabilityPane.setBackground(Color.WHITE);
+
+        container.add(mazePane);
+        container.add(usabilityPane);
 
 
     }
