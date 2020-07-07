@@ -6,9 +6,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Vector;
 
-/**
- * TO-DO exceptions
- */
 
 public class MazeWindow extends JFrame {
 
@@ -85,6 +82,8 @@ public class MazeWindow extends JFrame {
         JPanel options = new JPanel();
         options.setLayout(optionsStyle);
         GridBagConstraints layoutOpt = new GridBagConstraints();
+        layoutOpt.insets = new Insets(20,20,20,20);
+        options.setBackground(Color.WHITE);
 
         JButton start = new JButton("Старт");
 
@@ -203,9 +202,7 @@ public class MazeWindow extends JFrame {
         gbcMaze.ipady = 0;
         gbcMaze.fill = GridBagConstraints.BOTH;
         gbcMaze.gridwidth = 2;
-//        gbcMaze.weightx = 1; //выделение пространства для столбцов
         gbcMaze.weighty = 1; //и строк
-//        gbcMaze.gridx = 0; // № столбца
         gbcMaze.gridy = 1; // № строки
 
 
@@ -309,30 +306,32 @@ public class MazeWindow extends JFrame {
             mazeField.addElement(cells);
         }
 
-        // start of legend
+        // start of legend 150+ строк легенды
         GridBagLayout usabilityStyle = new GridBagLayout();
         JPanel usabilityPane = new JPanel();
         usabilityPane.setLayout(usabilityStyle);
         GridBagConstraints usabilityOpt = new GridBagConstraints();
 
+
         usabilityOpt.fill = GridBagConstraints.NONE;
-        usabilityOpt.gridx = 0; // № столбца
-        usabilityOpt.gridy = 0; // № строки
         usabilityOpt.gridwidth = 1; // число ячеек, занимаемых объектом
-        usabilityOpt.weighty = 1;
-//        usabilityOpt.ipadx = 70;
-//        usabilityOpt.ipady = 70;
         usabilityOpt.anchor = GridBagConstraints.CENTER; //  задает выравнивание
+
         // green
+        usabilityOpt.gridx = 0; // № столбца
+        usabilityOpt.gridy = 1; // № строки
+        usabilityOpt.insets = new Insets(40, 20, 0, 30); // отступ у элемента (w, a, s, d)
         JLabel tmp = new JLabel();
         tmp.setBackground(Color.GREEN);
         tmp.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(60,5));
+        tmp.setPreferredSize(new Dimension(120,5));
         usabilityPane.add(tmp, usabilityOpt);
 
-        usabilityOpt.gridy = 1;
+        usabilityOpt.insets = new Insets(0, 20, 0, 30);
+        usabilityOpt.gridx = 0; // № столбца
+        usabilityOpt.gridy = 2;
         tmp = new JLabel();
         tmp.setBackground(Color.WHITE);
         tmp.setOpaque(true);
@@ -340,16 +339,18 @@ public class MazeWindow extends JFrame {
         tmp.setText("дорожка");
         usabilityPane.add(tmp, usabilityOpt);
         // magneta
-        usabilityOpt.gridy = 2;
+        usabilityOpt.insets = new Insets(40, 20, 0, 30);
+        usabilityOpt.gridy = 3;
         tmp = new JLabel();
         tmp.setBackground(Color.MAGENTA);
         tmp.setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(60,5));
+        tmp.setPreferredSize(new Dimension(120,5));
         usabilityPane.add(tmp, usabilityOpt);
 
-        usabilityOpt.gridy = 3;
+        usabilityOpt.insets = new Insets(0, 20, 0, 30);
+        usabilityOpt.gridy = 4;
         tmp = new JLabel();
         tmp.setBackground(Color.WHITE);
         tmp.setOpaque(true);
@@ -357,36 +358,20 @@ public class MazeWindow extends JFrame {
         tmp.setText("потенциальный путь");
         usabilityPane.add(tmp, usabilityOpt);
 
-        // black
-        usabilityOpt.gridy = 4;
-        tmp = new JLabel();
-        tmp.setBackground(Color.BLACK);
-        tmp.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        tmp.setOpaque(true);
-        tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(60,5));
-        usabilityPane.add(tmp, usabilityOpt);
-
-        usabilityOpt.gridy = 5;
-        tmp = new JLabel();
-        tmp.setBackground(Color.WHITE);
-        tmp.setOpaque(true);
-        tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setText("стена");
-        usabilityPane.add(tmp, usabilityOpt);
-
         // red
-
-        usabilityOpt.gridy = 6;
+        usabilityOpt.insets = new Insets(40, 0, 0, 20);
+        usabilityOpt.gridx = 1; // № столбца
+        usabilityOpt.gridy = 1;
         tmp = new JLabel();
         tmp.setBackground(Color.RED);
         tmp.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(60,5));
+        tmp.setPreferredSize(new Dimension(120,5));
         usabilityPane.add(tmp, usabilityOpt);
 
-        usabilityOpt.gridy = 7;
+        usabilityOpt.insets = new Insets(0, 0, 0, 20);
+        usabilityOpt.gridy = 2;
         tmp = new JLabel();
         tmp.setBackground(Color.WHITE);
         tmp.setOpaque(true);
@@ -394,17 +379,40 @@ public class MazeWindow extends JFrame {
         tmp.setText("искомый путь");
         usabilityPane.add(tmp, usabilityOpt);
 
+        // black
+        usabilityOpt.insets = new Insets(40, 0, 0, 20);
+        usabilityOpt.gridy = 3;
+        tmp = new JLabel();
+        tmp.setBackground(Color.BLACK);
+        tmp.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setPreferredSize(new Dimension(120,5));
+        usabilityPane.add(tmp, usabilityOpt);
 
-        usabilityOpt.gridy = 8;
+        usabilityOpt.insets = new Insets(0, 0, 0, 20);
+        usabilityOpt.gridy = 4;
+        tmp = new JLabel();
+        tmp.setBackground(Color.WHITE);
+        tmp.setOpaque(true);
+        tmp.setHorizontalAlignment(SwingConstants.CENTER);
+        tmp.setText("стена");
+        usabilityPane.add(tmp, usabilityOpt);
+
+        //yellow
+        usabilityOpt.insets = new Insets(40, 0, 0, 20);
+        usabilityOpt.gridx = 2; // № столбца
+        usabilityOpt.gridy = 1;
         tmp = new JLabel();
         tmp.setBackground(Color.YELLOW);
         tmp.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(60,5));
+        tmp.setPreferredSize(new Dimension(120,5));
         usabilityPane.add(tmp, usabilityOpt);
 
-        usabilityOpt.gridy = 9;
+        usabilityOpt.insets = new Insets(0, 0, 0, 20);
+        usabilityOpt.gridy = 2;
         tmp = new JLabel();
         tmp.setBackground(Color.WHITE);
         tmp.setOpaque(true);
@@ -412,17 +420,19 @@ public class MazeWindow extends JFrame {
         tmp.setText("старт");
         usabilityPane.add(tmp, usabilityOpt);
 
-
-        usabilityOpt.gridy = 10;
+        //blue
+        usabilityOpt.insets = new Insets(40, 0, 0, 20);
+        usabilityOpt.gridy = 3;
         tmp = new JLabel();
         tmp.setBackground(Color.BLUE);
         tmp.setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(60,5));
+        tmp.setPreferredSize(new Dimension(120,5));
         usabilityPane.add(tmp, usabilityOpt);
 
-        usabilityOpt.gridy = 11;
+        usabilityOpt.insets = new Insets(0, 0, 0, 20);
+        usabilityOpt.gridy = 4;
         tmp = new JLabel();
         tmp.setBackground(Color.WHITE);
         tmp.setOpaque(true);
@@ -430,24 +440,18 @@ public class MazeWindow extends JFrame {
         tmp.setText("финиш");
         usabilityPane.add(tmp, usabilityOpt);
 
-
-
-
-
-
-
-
-
-        usabilityOpt.gridx = 1;
+        // в начало layout добавляем поле с кнопками
+        usabilityOpt.gridx = 0;
         usabilityOpt.gridy = 0;
-        usabilityOpt.gridheight = GridBagConstraints.REMAINDER;
+        usabilityOpt.gridwidth = GridBagConstraints.REMAINDER;
         usabilityPane.add(options, usabilityOpt);
-// todo insets !
+
         mazePane.add(maze, gbcMaze);
 
         setBackground(Color.WHITE);
         mazePane.setBackground(Color.WHITE);
         usabilityPane.setBackground(Color.WHITE);
+
 
         container.add(mazePane);
         container.add(usabilityPane);
