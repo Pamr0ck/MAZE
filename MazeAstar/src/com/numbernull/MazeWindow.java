@@ -12,12 +12,11 @@ public class MazeWindow extends JFrame {
     boolean isBegin = false;
     boolean isEnd = false;
     boolean isReady = false;
-    boolean isActive = true;
 
-    int beginX=-1;
-    int beginY=-1;
-    int endX=-1;
-    int endY=-1;
+    int beginX;
+    int beginY;
+    int endX;
+    int endY;
     Vector<Vector<JLabel>> mazeField;
     ArrayList<Maze.Cell> path;
 
@@ -49,10 +48,14 @@ public class MazeWindow extends JFrame {
                 }
             }
         }
-        mazeField.elementAt(beginY).elementAt(beginX).setBackground(Color.YELLOW);
-        mazeField.elementAt(beginY).elementAt(beginX).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
-        mazeField.elementAt(endY).elementAt(endX).setBackground(Color.BLUE);
-        mazeField.elementAt(endY).elementAt(endX).setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
+        if(beginX != -1 && beginY != -1) {
+            mazeField.elementAt(beginY).elementAt(beginX).setBackground(Color.YELLOW);
+            mazeField.elementAt(beginY).elementAt(beginX).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
+        }
+        if(endX != -1 && endY != -1) {
+            mazeField.elementAt(endY).elementAt(endX).setBackground(Color.BLUE);
+            mazeField.elementAt(endY).elementAt(endX).setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
+        }
     }
 
 
@@ -61,6 +64,11 @@ public class MazeWindow extends JFrame {
 
         this.path = new ArrayList<>();
         this.currentIteration = 0;
+
+        beginX = -1;
+        beginY = -1;
+        endX = -1;
+        endY = -1;
 
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,6 +94,7 @@ public class MazeWindow extends JFrame {
         options.setBackground(Color.WHITE);
 
         JButton start = new JButton("Старт");
+        start.setFont(new java.awt.Font("Lucida Grande", 1, 28));
 
         start.addActionListener(new ActionListener() {
             @Override
@@ -93,7 +102,7 @@ public class MazeWindow extends JFrame {
                 if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
                     JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
                             "Ошибка", JOptionPane.ERROR_MESSAGE);
-                } else if(isActive) {
+                } else if(!isBegin && !isEnd) {
                     if (e.getSource() == start && !isReady) {
                         path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
                         isReady = true;
@@ -114,13 +123,16 @@ public class MazeWindow extends JFrame {
         layoutOpt.gridy = 0; // № строки
         layoutOpt.gridwidth = 2; // число ячеек, занимаемых объектом
         layoutOpt.ipadx = 70;
-        layoutOpt.ipady = 70;
+        layoutOpt.ipady = 40;
         layoutOpt.anchor = GridBagConstraints.CENTER; //  задает выравнивание
 
         options.add(start, layoutOpt);
 
         JButton next = new JButton("Вперед");
         JButton prev = new JButton("Назад");
+
+        next.setFont(new java.awt.Font("Lucida Grande", 1, 18));
+        prev.setFont(new java.awt.Font("Lucida Grande", 1, 18));
 
         next.addActionListener(new ActionListener() {
             @Override
@@ -129,7 +141,7 @@ public class MazeWindow extends JFrame {
                     if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
                         JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
                                 "Ошибка", JOptionPane.ERROR_MESSAGE);
-                    } else  if(isActive) {
+                    } else  if(!isBegin && !isEnd) {
                         if(!isReady) {
                             path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
                             isReady = true;
@@ -150,7 +162,7 @@ public class MazeWindow extends JFrame {
                     if(beginX == -1 || beginY == -1 || endX == -1 || endY == -1 ){
                         JOptionPane.showMessageDialog(new JFrame(), "Укажите \"Начало\" и \"Конец\"",
                                 "Ошибка", JOptionPane.ERROR_MESSAGE);
-                    }else  if(isActive){
+                    }else  if(!isBegin && !isEnd){
                         if (!isReady) {
                             path = Astar.search(labyrinth, labyrinth.labyrinth.elementAt(beginY).elementAt(beginX), labyrinth.labyrinth.elementAt(endY).elementAt(endX));
                             isReady = true;
@@ -209,6 +221,9 @@ public class MazeWindow extends JFrame {
         JButton setBegin = new JButton("Указать начало");
         JButton setEnd = new JButton("Указать конец");
 
+        setBegin.setFont(new java.awt.Font("Lucida Grande", 1, 18));
+        setEnd.setFont(new java.awt.Font("Lucida Grande", 1, 18));
+
         setBegin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -219,7 +234,7 @@ public class MazeWindow extends JFrame {
                     isBegin = true;
                     isEnd = false;
                     setBegin.setEnabled(false);
-                    isActive = false;
+                    setEnd.setEnabled(true);
                 }
             }
         });
@@ -234,7 +249,7 @@ public class MazeWindow extends JFrame {
                     isEnd = true;
                     isBegin = false;
                     setEnd.setEnabled(false);
-                    isActive = false;
+                    setBegin.setEnabled(true);
                 }
             }
         });
@@ -255,6 +270,7 @@ public class MazeWindow extends JFrame {
             for (int j = 0; j < x; j++) {
                 if (!labyrinth.labyrinth.elementAt(i).elementAt(j).isWall) {
                     JLabel textLabel = new JLabel();
+                    textLabel.setFont(new java.awt.Font("Lucida Grande", 1, 0));
                     textLabel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
                     textLabel.setBackground(Color.GREEN);
                     textLabel.setOpaque(true);
@@ -275,7 +291,6 @@ public class MazeWindow extends JFrame {
                                 isBegin = false;
                                 mazeField.elementAt(beginY).elementAt(beginX).setBackground(Color.YELLOW);
                                 mazeField.elementAt(beginY).elementAt(beginX).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
-                                isActive = true;
                                 setBegin.setEnabled(true);
                                 updateField(labyrinth);
                             }
@@ -285,7 +300,6 @@ public class MazeWindow extends JFrame {
                                 isEnd = false;
                                 mazeField.elementAt(endY).elementAt(endX).setBackground(Color.BLUE);
                                 mazeField.elementAt(endY).elementAt(endX).setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
-                                isActive = true;
                                 setEnd.setEnabled(true);
                                 updateField(labyrinth);
                             }
@@ -326,7 +340,7 @@ public class MazeWindow extends JFrame {
         tmp.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(120,5));
+        tmp.setPreferredSize(new Dimension(120,20));
         usabilityPane.add(tmp, usabilityOpt);
 
         usabilityOpt.insets = new Insets(0, 20, 0, 30);
@@ -337,6 +351,7 @@ public class MazeWindow extends JFrame {
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
         tmp.setText("дорожка");
+        tmp.setFont(new java.awt.Font("Lucida Grande", 1, 15));
         usabilityPane.add(tmp, usabilityOpt);
         // magneta
         usabilityOpt.insets = new Insets(40, 20, 0, 30);
@@ -346,7 +361,7 @@ public class MazeWindow extends JFrame {
         tmp.setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(120,5));
+        tmp.setPreferredSize(new Dimension(120,20));
         usabilityPane.add(tmp, usabilityOpt);
 
         usabilityOpt.insets = new Insets(0, 20, 0, 30);
@@ -356,6 +371,7 @@ public class MazeWindow extends JFrame {
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
         tmp.setText("потенциальный путь");
+        tmp.setFont(new java.awt.Font("Lucida Grande", 1, 15));
         usabilityPane.add(tmp, usabilityOpt);
 
         // red
@@ -367,7 +383,7 @@ public class MazeWindow extends JFrame {
         tmp.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(120,5));
+        tmp.setPreferredSize(new Dimension(120,20));
         usabilityPane.add(tmp, usabilityOpt);
 
         usabilityOpt.insets = new Insets(0, 0, 0, 20);
@@ -377,6 +393,7 @@ public class MazeWindow extends JFrame {
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
         tmp.setText("искомый путь");
+        tmp.setFont(new java.awt.Font("Lucida Grande", 1, 15));
         usabilityPane.add(tmp, usabilityOpt);
 
         // black
@@ -387,7 +404,8 @@ public class MazeWindow extends JFrame {
         tmp.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(120,5));
+        tmp.setPreferredSize(new Dimension(120,20));
+        tmp.setFont(new java.awt.Font("Lucida Grande", 1, 15));
         usabilityPane.add(tmp, usabilityOpt);
 
         usabilityOpt.insets = new Insets(0, 0, 0, 20);
@@ -397,6 +415,7 @@ public class MazeWindow extends JFrame {
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
         tmp.setText("стена");
+        tmp.setFont(new java.awt.Font("Lucida Grande", 1, 15));
         usabilityPane.add(tmp, usabilityOpt);
 
         //yellow
@@ -408,7 +427,7 @@ public class MazeWindow extends JFrame {
         tmp.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(120,5));
+        tmp.setPreferredSize(new Dimension(120,20));
         usabilityPane.add(tmp, usabilityOpt);
 
         usabilityOpt.insets = new Insets(0, 0, 0, 20);
@@ -417,7 +436,8 @@ public class MazeWindow extends JFrame {
         tmp.setBackground(Color.WHITE);
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setText("старт");
+        tmp.setText("начало");
+        tmp.setFont(new java.awt.Font("Lucida Grande", 1, 15));
         usabilityPane.add(tmp, usabilityOpt);
 
         //blue
@@ -428,7 +448,7 @@ public class MazeWindow extends JFrame {
         tmp.setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setPreferredSize(new Dimension(120,5));
+        tmp.setPreferredSize(new Dimension(120,20));
         usabilityPane.add(tmp, usabilityOpt);
 
         usabilityOpt.insets = new Insets(0, 0, 0, 20);
@@ -437,7 +457,8 @@ public class MazeWindow extends JFrame {
         tmp.setBackground(Color.WHITE);
         tmp.setOpaque(true);
         tmp.setHorizontalAlignment(SwingConstants.CENTER);
-        tmp.setText("финиш");
+        tmp.setText("конец");
+        tmp.setFont(new java.awt.Font("Lucida Grande", 1, 15));
         usabilityPane.add(tmp, usabilityOpt);
 
         // в начало layout добавляем поле с кнопками

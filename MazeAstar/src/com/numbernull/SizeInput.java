@@ -6,6 +6,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+
+
 public class SizeInput extends JFrame{
     private final JTextField yCord;
     private int y = 0 ;
@@ -31,7 +33,7 @@ public class SizeInput extends JFrame{
                             throw new RangeException((short) 0,"");
                         }
                         setVisible(false);
-                        new MazeWindow(s, y, y, new Maze(y, y));
+                        new MazeWindow(s, y, y, new Maze(y));
                     }catch (NumberFormatException | RangeException err){
                         JOptionPane.showMessageDialog(new JFrame(), "Введите целое значение от 4 до 100",
                                 "Ошибка", JOptionPane.ERROR_MESSAGE);

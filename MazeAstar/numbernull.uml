@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.numbernull</OriginalElement>
+  <nodes>
+    <node x="524.7554518398271" y="704.0">com.numbernull.Astar.CellComparator</node>
+    <node x="17.09753787878816" y="1559.0">com.numbernull.SizeInput</node>
+    <node x="365.544412878788" y="840.0">com.numbernull.Astar</node>
+    <node x="316.5" y="672.0">com.numbernull.Astar.Snapshot</node>
+    <node x="289.33333333333326" y="0.0">com.numbernull.Maze.Cell</node>
+    <node x="323.5804518398271" y="1406.0">com.numbernull.AstarTest</node>
+    <node x="216.0833333333333" y="374.0">com.numbernull.Maze</node>
+    <node x="588.2554518398272" y="1150.0">com.numbernull.DFS</node>
+    <node x="10.09753787878816" y="1860.0">com.numbernull.Main</node>
+    <node x="36.5" y="1030.0">com.numbernull.MazeWindow</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.numbernull.Main" target="com.numbernull.SizeInput">
+      <point x="-37.25" y="-27.0" />
+      <point x="47.34753787878816" y="1835.0" />
+      <point x="50.84753787878816" y="1835.0" />
+      <point x="-33.75" y="49.0" />
+    </edge>
+    <edge source="com.numbernull.Astar.Snapshot" target="com.numbernull.Maze">
+      <point x="0.0" y="-59.0" />
+      <point x="402.5" y="652.0" />
+      <point x="358.4333333333333" y="652.0" />
+      <point x="32.85000000000002" y="114.0" />
+    </edge>
+    <edge source="com.numbernull.MazeWindow" target="com.numbernull.Astar">
+      <point x="88.875" y="-158.0" />
+      <point x="243.875" y="1010.0" />
+      <point x="410.87774621212134" y="1010.0" />
+      <point x="-90.66666666666669" y="70.0" />
+    </edge>
+    <edge source="com.numbernull.DFS" target="com.numbernull.Astar">
+      <point x="-76.0" y="-38.0" />
+      <point x="626.2554518398272" y="1010.0" />
+      <point x="592.2110795454547" y="1010.0" />
+      <point x="90.66666666666669" y="70.0" />
+    </edge>
+    <edge source="com.numbernull.AstarTest" target="com.numbernull.Maze.Cell">
+      <point x="70.0" y="-202.0" />
+      <point x="477.5804518398271" y="1386.0" />
+      <point x="826.7554518398272" y="1386.0" />
+      <point x="826.7554518398272" y="314.0" />
+      <point x="462.23333333333323" y="314.0" />
+      <point x="81.89999999999998" y="147.0" />
+    </edge>
+    <edge source="com.numbernull.AstarTest" target="com.numbernull.Maze">
+      <point x="-14.0" y="-202.0" />
+      <point x="393.5804518398271" y="1366.0" />
+      <point x="306.0" y="1366.0" />
+      <point x="306.0" y="652.0" />
+      <point x="314.6333333333333" y="652.0" />
+      <point x="-10.949999999999989" y="114.0" />
+    </edge>
+    <edge source="com.numbernull.Maze" target="com.numbernull.Maze.Cell">
+      <point x="-27.375" y="-114.0" />
+      <point x="298.20833333333326" y="344.0" />
+      <point x="353.0333333333333" y="344.0" />
+      <point x="-27.30000000000001" y="147.0" />
+    </edge>
+    <edge source="com.numbernull.Astar.CellComparator" target="com.numbernull.Astar">
+      <point x="41.75000000000003" y="27.0" />
+      <point x="650.0054518398272" y="815.0" />
+      <point x="618.1158414502165" y="815.0" />
+      <point x="116.57142857142856" y="-70.0" />
+    </edge>
+    <edge source="com.numbernull.Astar" target="com.numbernull.Astar.CellComparator">
+      <point x="77.71428571428572" y="-70.0" />
+      <point x="579.2586985930737" y="815.0" />
+      <point x="566.5054518398271" y="815.0" />
+      <point x="-41.75" y="27.0" />
+    </edge>
+    <edge source="com.numbernull.Astar.Snapshot" target="com.numbernull.Astar">
+      <point x="57.33333333333337" y="59.0" />
+      <point x="459.83333333333337" y="815.0" />
+      <point x="462.68727002164513" y="815.0" />
+      <point x="-38.85714285714289" y="-70.0" />
+    </edge>
+    <edge source="com.numbernull.SizeInput" target="com.numbernull.Maze">
+      <point x="-33.75" y="-49.0" />
+      <point x="50.84753787878816" y="1386.0" />
+      <point x="26.0" y="1386.0" />
+      <point x="26.0" y="642.0" />
+      <point x="227.03333333333327" y="642.0" />
+      <point x="-98.55000000000001" y="114.0" />
+    </edge>
+    <edge source="com.numbernull.Astar.CellComparator" target="com.numbernull.Maze.Cell">
+      <point x="0.0" y="-27.0" />
+      <point x="608.2554518398271" y="334.0" />
+      <point x="425.83333333333326" y="334.0" />
+      <point x="45.5" y="147.0" />
+    </edge>
+    <edge source="com.numbernull.AstarTest" target="com.numbernull.DFS">
+      <point x="42.0" y="-202.0" />
+      <point x="449.5804518398271" y="1376.0" />
+      <point x="702.2554518398272" y="1376.0" />
+      <point x="0.0" y="38.0" />
+    </edge>
+    <edge source="com.numbernull.Astar" target="com.numbernull.Maze">
+      <point x="0.0" y="-70.0" />
+      <point x="501.544412878788" y="815.0" />
+      <point x="499.0" y="815.0" />
+      <point x="499.0" y="632.0" />
+      <point x="402.23333333333323" y="632.0" />
+      <point x="76.64999999999998" y="114.0" />
+    </edge>
+    <edge source="com.numbernull.Maze.Cell" target="com.numbernull.Maze">
+      <point x="9.100000000000023" y="147.0" />
+      <point x="389.4333333333333" y="354.0" />
+      <point x="407.70833333333326" y="354.0" />
+      <point x="82.125" y="-114.0" />
+    </edge>
+    <edge source="com.numbernull.Astar" target="com.numbernull.Astar.Snapshot">
+      <point x="-116.57142857142858" y="-70.0" />
+      <point x="384.9729843073594" y="815.0" />
+      <point x="345.1666666666667" y="815.0" />
+      <point x="-57.333333333333314" y="59.0" />
+    </edge>
+    <edge source="com.numbernull.Astar" target="com.numbernull.Maze.Cell">
+      <point x="38.85714285714283" y="-70.0" />
+      <point x="540.4015557359309" y="815.0" />
+      <point x="514.2554518398271" y="815.0" />
+      <point x="514.2554518398271" y="344.0" />
+      <point x="407.6333333333332" y="344.0" />
+      <point x="27.299999999999955" y="147.0" />
+    </edge>
+    <edge source="com.numbernull.SizeInput" target="com.numbernull.MazeWindow">
+      <point x="33.75" y="-49.0" />
+      <point x="118.34753787878816" y="1386.0" />
+      <point x="155.0" y="1386.0" />
+      <point x="0.0" y="158.0" />
+    </edge>
+    <edge source="com.numbernull.DFS" target="com.numbernull.Maze.Cell">
+      <point x="76.0" y="-38.0" />
+      <point x="778.2554518398272" y="1010.0" />
+      <point x="725.3563717532468" y="1010.0" />
+      <point x="725.3563717532468" y="324.0" />
+      <point x="444.0333333333332" y="324.0" />
+      <point x="63.69999999999993" y="147.0" />
+    </edge>
+    <edge source="com.numbernull.DFS" target="com.numbernull.Maze">
+      <point x="0.0" y="-38.0" />
+      <point x="702.2554518398272" y="1010.0" />
+      <point x="708.3392857142858" y="1010.0" />
+      <point x="708.3392857142858" y="622.0" />
+      <point x="424.1333333333333" y="622.0" />
+      <point x="98.55000000000007" y="114.0" />
+    </edge>
+    <edge source="com.numbernull.MazeWindow" target="com.numbernull.Maze.Cell">
+      <point x="-88.875" y="-158.0" />
+      <point x="66.125" y="1010.0" />
+      <point x="4.0" y="1010.0" />
+      <point x="4.0" y="314.0" />
+      <point x="298.4333333333333" y="314.0" />
+      <point x="-81.89999999999998" y="147.0" />
+    </edge>
+    <edge source="com.numbernull.AstarTest" target="com.numbernull.Astar">
+      <point x="14.0" y="-202.0" />
+      <point x="421.5804518398271" y="1366.0" />
+      <point x="501.544412878788" y="1366.0" />
+      <point x="0.0" y="70.0" />
+    </edge>
+    <edge source="com.numbernull.MazeWindow" target="com.numbernull.Maze">
+      <point x="29.625" y="-158.0" />
+      <point x="184.625" y="652.0" />
+      <point x="248.9333333333333" y="652.0" />
+      <point x="-76.64999999999998" y="114.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="521.9999999999995" y="883.9999999999995" />
+  <SelectedNodes>
+    <node>com.numbernull.Maze</node>
+    <node>com.numbernull.MazeWindow</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

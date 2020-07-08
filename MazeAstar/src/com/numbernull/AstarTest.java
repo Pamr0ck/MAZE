@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AstarTest {
     Maze Big1, Mid1, Small1 ,Big2, Mid2, Small2;
@@ -21,17 +22,17 @@ public class AstarTest {
     private int[] genCoords(Maze m){
         Random rnd = new Random();
         int[] ans = new int[4];
-        StartX = rnd.nextInt(m.getSizeX()-1);
-        StartY = rnd.nextInt(m.getSizeX()-1);
-        GoalX = rnd.nextInt(m.getSizeX()-1);
-        GoalY = rnd.nextInt(m.getSizeX()-1);
+        StartX = rnd.nextInt(m.sizeX-1);
+        StartY = rnd.nextInt(m.sizeX-1);
+        GoalX = rnd.nextInt(m.sizeX-1);
+        GoalY = rnd.nextInt(m.sizeX-1);
         while (m.labyrinth.elementAt(StartY).elementAt(StartX).isWall){
-            StartX = rnd.nextInt(m.getSizeX()-1);
-            StartY = rnd.nextInt(m.getSizeX()-1);
+            StartX = rnd.nextInt(m.sizeX-1);
+            StartY = rnd.nextInt(m.sizeX-1);
         }
         while (m.labyrinth.elementAt(GoalY).elementAt(GoalX).isWall){
-            GoalX = rnd.nextInt(m.getSizeX()-1);
-            GoalY = rnd.nextInt(m.getSizeX()-1);
+            GoalX = rnd.nextInt(m.sizeX-1);
+            GoalY = rnd.nextInt(m.sizeX-1);
         }
         ans[0] = StartX;
         ans[1] = StartY;
